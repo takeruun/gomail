@@ -1,14 +1,18 @@
 package gomail
 
+type Auth struct {
+	Host     string // smtp host
+	Email    string // email of smtp user
+	Password string // password of smtp user
+}
+
+type From struct {
+	Name  string // sender's name
+	Email string // sender's email
+}
+
 type Config struct {
-	Auth struct {
-		Host     string
-		Email    string
-		Password string
-	}
-	From struct {
-		Name  string
-		Email string
-	}
-	Addr string
+	Auth
+	From
+	Addr string // smt server
 }
