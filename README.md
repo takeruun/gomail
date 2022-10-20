@@ -1,3 +1,12 @@
+# About
+A utf8-capable mail sending library.
+
+Currently, the only supported smtp server is a **gmail 2-step verification account**.
+
+Accounts to be supported in the future
+- office
+- sendgrid
+
 # Installation
 ```
 go get github.com/takeruun/gomail
