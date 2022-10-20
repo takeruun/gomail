@@ -19,12 +19,14 @@ type Mail struct {
 	From mail.Address
 }
 
-func New(config *Config) *Mail {
-	return &Mail{
+func New(config *Config) (gomail *Mail) {
+	gomail = &Mail{
 		Auth: LoginAuth(config.Auth.Email, config.Auth.Password),
 		Addr: config.Addr,
 		From: mail.Address{Name: config.From.Name, Address: config.From.Email},
 	}
+
+	return
 }
 
 // 適切な長さにカットしCRLFを挿入
@@ -87,14 +89,14 @@ func makeMailHeader(from, to, subject string) bytes.Buffer {
 	return header
 }
 
-func (g *Mail) Send(to, subject, body string) error {
-	mailHeader := makeMailHeader(g.From.String(), to, subject)
+func (mail *Mail) Send(to, subject, body string) error {
+	mailHeader := makeMailHeader(mail.From.String(), to, subject)
 	mailBody := makeMailBody(body)
 
 	msg := mailHeader
 	msg.WriteString(mailBody)
 
-	if err := smtp.SendMail(g.Addr, g.Auth, g.From.Address, []string{to}, msg.Bytes()); err != nil {
+	if err := smtp.SendMail(mail.Addr, mail.Auth, mail.From.Address, []string{to}, msg.Bytes()); err != nil {
 		return err
 	}
 
