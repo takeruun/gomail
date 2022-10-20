@@ -13,14 +13,14 @@ const (
 	charactorLimitForOneLine = 78
 )
 
-type gomail struct {
+type Mail struct {
 	Auth smtp.Auth
 	Addr string
 	From mail.Address
 }
 
-func New(config *Config) *gomail {
-	return &gomail{
+func New(config *Config) *Mail {
+	return &Mail{
 		Auth: LoginAuth(config.Auth.Email, config.Auth.Password),
 		Addr: config.Addr,
 		From: mail.Address{Name: config.From.Name, Address: config.From.Email},
@@ -87,7 +87,7 @@ func makeMailHeader(from, to, subject string) bytes.Buffer {
 	return header
 }
 
-func (g *gomail) Send(to, subject, body string) error {
+func (g *Mail) Send(to, subject, body string) error {
 	mailHeader := makeMailHeader(g.From.String(), to, subject)
 	mailBody := makeMailBody(body)
 
