@@ -17,15 +17,15 @@ go get github.com/takeruun/gomail
 ```go
 config := &gomail.Config{
   Auth: gomail.Auth{
-    Host:     'smtp-host',
-    Email:    'auth-email',
-    Password: 'auth-password',
+    Host:     "smtp-host",
+    Email:    "auth-email",
+    Password: "auth-password",
   },
   From: gomail.From{
-    Name:  'sender name',
-    Email: 'sender email',
+    Name:  "sender name",
+    Email: "sender email",
   },
-  Addr: 'smtp-address',
+  Addr: "smtp-address",
 }
 
 mail := gomail.New(gomailConfig)
